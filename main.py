@@ -28,6 +28,10 @@ class Snake:
             pygame.K_DOWN: self.move_down,
             pygame.K_LEFT: self.move_left,
             pygame.K_RIGHT: self.move_right,
+            pygame.K_w: self.move_up,
+            pygame.K_s: self.move_down,
+            pygame.K_a: self.move_left,
+            pygame.K_d: self.move_right,
         }
 
     def set_direction(self, new_direction: Vector2 | tuple[int, int]) -> None:
