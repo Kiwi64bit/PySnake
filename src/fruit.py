@@ -1,11 +1,11 @@
 import pygame
 from pygame import Vector2
+from pygame.typing import SequenceLike, ColorLike
 import random
 
 
 class Fruit:
-    def __init__(self, pos: Vector2 | tuple[int, int], size: Vector2 | tuple[int, int],
-                 color: pygame.Color | str) -> None:
+    def __init__(self, pos: SequenceLike[float], size: SequenceLike[float], color: ColorLike) -> None:
         self.pos: Vector2 = Vector2(pos)
         self.size: Vector2 = Vector2(size)
         self.color: pygame.Color = pygame.Color(color)
@@ -21,7 +21,7 @@ class Fruit:
         self.pos = random.choice(available_positions)
         return True
 
-    def grid_to_screen(self, grid_pos) -> Vector2:
+    def grid_to_screen(self, grid_pos: Vector2) -> Vector2:
         screen_pos: Vector2 = Vector2(grid_pos.x * self.size.x, grid_pos.y * self.size.y)
         return screen_pos
 

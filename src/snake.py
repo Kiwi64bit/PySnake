@@ -1,9 +1,11 @@
 import pygame
 from pygame import Vector2
+from pygame.typing import ColorLike, SequenceLike
+from typing import Callable
 
 
 class Snake:
-    def __init__(self, cell_size: Vector2 | tuple[int, int], color: pygame.Color | str) -> None:
+    def __init__(self, cell_size: SequenceLike[float], color: ColorLike) -> None:
         self.body: list[Vector2] = [
                 Vector2(4, 7),
                 Vector2(3, 7),
@@ -18,7 +20,7 @@ class Snake:
         self.can_move: bool = False
         self.can_grow: bool = False
 
-        self.controls: dict[int, ...] = {
+        self.controls: dict[int, Callable[[], None]] = {
                 pygame.K_UP   : self.move_up,
                 pygame.K_DOWN : self.move_down,
                 pygame.K_LEFT : self.move_left,
@@ -29,7 +31,7 @@ class Snake:
                 pygame.K_d    : self.move_right,
         }
 
-    def set_direction(self, new_direction: Vector2 | tuple[int, int]) -> None:
+    def set_direction(self, new_direction: SequenceLike[float]) -> None:
         new_direction: Vector2 = Vector2(new_direction)
         if new_direction and new_direction != -self.direction:
             self.direction = new_direction

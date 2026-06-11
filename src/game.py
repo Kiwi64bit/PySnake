@@ -1,13 +1,13 @@
 import pygame
 from pygame import Vector2
+from pygame.typing import SequenceLike, ColorLike
 from src.snake import Snake
 from src.fruit import Fruit
 from src.helpers import load_font
 
 
 class Game:
-    def __init__(self, size: Vector2 | tuple[int, int], caption: str, fps: int,
-                 cell_size: Vector2 | tuple[int, int]) -> None:
+    def __init__(self, size: SequenceLike[float], caption: str, fps: int, cell_size: SequenceLike[float]) -> None:
         self.surface: pygame.Surface = pygame.display.set_mode(size)
         pygame.display.set_caption(caption)
         self.FPS: int = fps
@@ -36,7 +36,7 @@ class Game:
         self.end_game_screen('You Lose', 'red')
         self.running = False
 
-    def end_game_screen(self, text: str, text_color: pygame.Color | str):
+    def end_game_screen(self, text: str, text_color: ColorLike):
         font: pygame.Font = load_font(self.font, 80)
         text: pygame.Surface = font.render(text, True, text_color)
         text_rect: pygame.Rect = text.get_rect(center=self.surface.get_rect().center)
@@ -60,7 +60,7 @@ class Game:
             if not self.apple.respawn(self.grid_size, self.snake.body):
                 self.win()
 
-    def render_text(self, text: str, size: int, pos: Vector2 | tuple[int, int], color: pygame.Color | str):
+    def render_text(self, text: str, size: int, pos: SequenceLike[float], color: ColorLike):
         font: pygame.Font = load_font(self.font, size)
         text: pygame.Surface = font.render(text, True, color)
         self.surface.blit(text, pos)
