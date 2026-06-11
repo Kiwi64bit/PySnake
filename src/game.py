@@ -2,6 +2,7 @@ import pygame
 from pygame import Vector2
 from src.snake import Snake
 from src.fruit import Fruit
+from src.helpers import load_font
 
 
 class Game:
@@ -20,14 +21,6 @@ class Game:
         self.snake: Snake = Snake(self.cell_size, 'green')
         self.apple: Fruit = Fruit((10, 7), self.cell_size, 'red')
 
-    @staticmethod
-    def load_font(font: str, size: int) -> pygame.Font:
-        try:
-            return pygame.font.Font(font, size)
-        except FileNotFoundError:
-            print(f'[Warning] {font} was not found.')
-            return pygame.font.SysFont('CambriaMath', size)
-
     def handle_events(self) -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,7 +37,7 @@ class Game:
         self.running = False
 
     def end_game_screen(self, text: str, text_color: pygame.Color | str):
-        font: pygame.Font = self.load_font(self.font, 80)
+        font: pygame.Font = load_font(self.font, 80)
         text: pygame.Surface = font.render(text, True, text_color)
         text_rect: pygame.Rect = text.get_rect(center=self.surface.get_rect().center)
         dark_overlay: pygame.Surface = pygame.surface.Surface(self.surface.size).convert_alpha()
@@ -68,7 +61,7 @@ class Game:
                 self.win()
 
     def render_text(self, text: str, size: int, pos: Vector2 | tuple[int, int], color: pygame.Color | str):
-        font: pygame.Font = self.load_font(self.font, size)
+        font: pygame.Font = load_font(self.font, size)
         text: pygame.Surface = font.render(text, True, color)
         self.surface.blit(text, pos)
 
